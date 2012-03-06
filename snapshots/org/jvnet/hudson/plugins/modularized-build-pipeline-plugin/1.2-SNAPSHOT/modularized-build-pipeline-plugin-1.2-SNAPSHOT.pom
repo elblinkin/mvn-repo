@@ -1,0 +1,115 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.jvnet.hudson.plugins</groupId>
+		<artifactId>plugin</artifactId>
+		<version>1.395</version>
+	</parent>
+
+	<groupId>org.jvnet.hudson.plugins</groupId>
+	<artifactId>modularized-build-pipeline-plugin</artifactId>
+	<version>1.2-SNAPSHOT</version>
+	<packaging>hpi</packaging>
+
+	<name>Build Pipeline Plugin</name>
+	<description>This plugin provides build pipeline functionality to Hudson and Jenkins.  This allows a chain of jobs to be visualised in a new view.  Manual jobs in the pipeline can be triggered by a user with the appropriate permissions manually confirming.  This is forked from the original plugin to modularize the jelly's so that we can plug in other dependency relationships.</description>
+
+	<url>https://code.google.com/p/llincoln-build-pipeline-plugin</url>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
+
+	<scm>
+		<connection>scm:hg:https://llincoln-build-pipeline-plugin.googlecode.com/hg/</connection>
+		<developerConnection>scm:hg:https://llincoln-build-pipeline-plugin.googlecode.com/hg/</developerConnection>
+		<url>https://llincoln-build-pipeline-plugin.googlecode.com/hg/</url>
+	</scm>
+
+	<developers>
+		<developer>
+			<id>centrum</id>
+			<name>Centrum Systems</name>
+			<email>plugins@centrumsystems.com.au</email>
+			<url>http://www.centrumsystems.com.au</url>
+		</developer>
+	</developers>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<scope>test</scope>
+		</dependency>
+                <dependency>
+                        <groupId>com.google.inject</groupId>
+                        <artifactId>guice</artifactId>
+                        <version>2.0</version>
+                </dependency>
+                <dependency>
+                        <groupId>com.google.inject.extensions</groupId>
+                        <artifactId>guice-assisted-inject</artifactId>
+                        <version>2.0</version>
+                </dependency>
+		<dependency>
+			<groupId>com.google.code.findbugs</groupId>
+			<artifactId>jsr305</artifactId>
+			<version>1.3.9</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<effort>Max</effort>
+					<threshold>Medium</threshold>
+					<xmlOutput>true</xmlOutput>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>hudson-ci</id>
+			<distributionManagement>
+				<snapshotRepository>
+					<id>elblinkin-snapshots</id>
+					<name>Elblinkin Snapshots</name>
+					<url>https://github.com/elblinkin/mvn-repo/raw/master/snapshots</url>
+				</snapshotRepository>
+				<repository>
+					<id>elblinkin-releases</id>
+					<name>Elblinkin Release Repository</name>
+					<url>https://github.com/elblinkin/mvn-repo/raw/master/releases</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+		<profile>
+			<id>jenkins-ci</id>
+			<distributionManagement>
+				<repository>
+					<id>maven.jenkins-ci.org</id>
+					<url>http://maven.jenkins-ci.org:8081/content/repositories/releases/</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+
+	</profiles>
+</project>
+
